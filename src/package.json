@@ -1,0 +1,4 @@
+{
+        "commons#org.apache.isis.core": "0.2.0-incubating",
+        "commons-skin#org.apache.commons": "4"
+    }
