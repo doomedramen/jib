@@ -57,8 +57,6 @@ func readFile() []dep {
 		deppy := dep{splitName[1], splitName[0], str}
 
 		deps = append(deps, deppy)
-
-		// fmt.Println(deps)
 	}
 
 	return deps
