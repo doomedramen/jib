@@ -28,10 +28,6 @@ type dep struct {
 	Version    string
 }
 
-// type deps struct {
-// 	dependencies []dep
-// }
-
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -41,7 +37,6 @@ func check(e error) {
 func readFile() []dep {
 	abspath, _ := os.Getwd()
 	filename := abspath + "/" + packageFileName
-	// fmt.Println(filename)
 
 	_, err := os.Stat(filename)
 	check(err)
@@ -53,7 +48,6 @@ func readFile() []dep {
 
 	var depsMap map[string]interface{}
 	json.Unmarshal(filebyte, &depsMap)
-	// fmt.Printf("Results: %v\n", depsMap)
 
 	for key, value := range depsMap {
 
