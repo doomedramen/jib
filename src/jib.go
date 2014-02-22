@@ -38,9 +38,6 @@ func readFile() []dep {
 	abspath, _ := os.Getwd()
 	filename := abspath + "/" + packageFileName
 
-	_, err := os.Stat(filename)
-	check(err)
-
 	filebyte, err := ioutil.ReadFile(filename)
 	check(err)
 
@@ -71,6 +68,12 @@ func downloadFile(depURL string) io.ReadCloser {
 }
 
 func runChecks() bool {
+
+	_, err := os.Stat(filename)
+	if err != nil {
+		return true
+	}
+
 	_, err := os.Stat(libFolderName)
 	if err != nil {
 		return true
