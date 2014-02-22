@@ -13,7 +13,7 @@ import (
 const (
 	libFolderName   = "lib"
 	packageFileName = "package.json"
-	baseURL         = "http://search.maven.org/remotecontent?filepath="
+	baseURL         = "http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy"
 
 	pom     = ".pom"
 	jar     = ".jar"
@@ -69,13 +69,15 @@ func downloadFile(depURL string) io.ReadCloser {
 
 func runChecks() bool {
 
-	_, err := os.Stat(filename)
+	_, err := os.Stat(packageFileName)
 	if err != nil {
+		fmt.Println("There is not a package.json in the current directory")
 		return true
 	}
 
-	_, err := os.Stat(libFolderName)
+	_, err = os.Stat(libFolderName)
 	if err != nil {
+		fmt.Println("There is not a 'lib' folder in the current directory")
 		return true
 	}
 	return false
@@ -94,16 +96,15 @@ func main() {
 
 	err := runChecks()
 	if err {
-		fmt.Println("There is not a 'lib' folder in the current directory")
 		return //exit
 	}
 
 	deps := readFile()
 
 	for _, value := range deps {
-		groupIdURL := strings.Replace(value.GroupId, ".", "/", -1)
 		file := value.ArtifactId + "-" + value.Version + jar
-		finalURL := baseURL + groupIdURL + "/" + value.ArtifactId + "/" + value.Version + "/" + file
+
+		finalURL := baseURL + "&g=" + value.GroupId + "&a=" + value.ArtifactId + "&v=" + value.Version
 
 		fmt.Println("Going to dowload", finalURL)
 
