@@ -1,11 +1,10 @@
 jib
 ===
 
-Jib, a dependency downloader for Java
+Jib is a super simple dependency downloader for Java.
 
-To use:
-create package.json in the root of your java project, add dependencys info from http://search.maven.org/
+Just define your dependencies in a package.json file and run 'jib'.
 
-use the included package.json file for example
+Available dependencies can found at 'http://search.maven.org/'.
 
-run jib to download librarys
+Instead of putting a specific version of a dependency in the config you can just use 'latest' or 'release'.
